@@ -12,15 +12,24 @@ const item2 = reactive({
 })
 
 const buy = (itemName: string) => alert(`${itemName}を購入する`)
-const add = (e: any) => {
+const addItemName = (e: any) => {
   item2.name = e.currentTarget.value
+}
+const addItemPrice = (e: any) => {
+  item2.price = e.currentTarget.value
+}
+const clear = () => {
+  item2.name = ''
+  item2.price = 0
 }
 </script>
 
 <template>
   <div class="container">
     <h1>最近の支出</h1>
-    <input @input="add">
+    <input @input="addItemName" v-model="item2.name"/>
+    <input @input="addItemPrice" v-model="item2.price"/>
+    <button @click="clear">Clear</button>
     <div class="payment-item">
       <label>{{ item1 }}</label>
       <label>{{ price1 }}</label>
@@ -42,6 +51,7 @@ const add = (e: any) => {
   flex-direction: column;
   width: 1000px;
   margin: 10px;
+  align-items: center;
 }
 
 .payment-item {
@@ -53,6 +63,13 @@ const add = (e: any) => {
   height: 50px;
   background-color: gray;
   border-radius: 5px;
+  width: 80%;
+}
+
+input {
+  margin: 5px;
+  height: 30px;
+  width: 50%;
 }
 
 label {
