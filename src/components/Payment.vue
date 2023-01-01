@@ -7,6 +7,8 @@ const url1 = 'https://pkg.navitime.co.jp/matsuyafoods/spot/detail?code=000000150
 const item2 = 'ハンバーグ'
 const price2 = 600
 const url2 = 'https://www.nakaita.com/shop/shop-0-97/'
+
+const buy = (itemName: string) => alert(`${itemName}を購入する`)
 </script>
 
 <template>
@@ -16,11 +18,13 @@ const url2 = 'https://www.nakaita.com/shop/shop-0-97/'
       <label>{{ item1 }}</label>
       <label>{{ price1 }}</label>
       <a :href="url1" target="_blank" rel="noopener noreferrer">bought here</a>
+      <button @click="buy(item1)">buy</button>
     </div>
     <div class="payment-item">
       <label>{{ item2 }}</label>
       <label>{{ price2 }}</label>
       <a :href="url2" target="_blank" rel="noopener noreferrer">bought here</a>
+      <button @click="buy(item2)">buy</button>
     </div>
   </div>
 </template>
