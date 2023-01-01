@@ -9,11 +9,15 @@ const price2 = 600
 const url2 = 'https://www.nakaita.com/shop/shop-0-97/'
 
 const buy = (itemName: string) => alert(`${itemName}を購入する`)
+const add = (e: any) => {
+  console.log("event_value", e.currentTarget.value)
+}
 </script>
 
 <template>
   <div class="container">
     <h1>最近の支出</h1>
+    <input @input="add">
     <div class="payment-item">
       <label>{{ item1 }}</label>
       <label>{{ price1 }}</label>
@@ -34,6 +38,7 @@ const buy = (itemName: string) => alert(`${itemName}を購入する`)
   display: flex;
   flex-direction: column;
   width: 1000px;
+  margin: 10px;
 }
 
 .payment-item {
@@ -43,7 +48,6 @@ const buy = (itemName: string) => alert(`${itemName}を購入する`)
   justify-content: space-between;
   align-items: center;
   height: 50px;
-  width: 100%;
   background-color: gray;
   border-radius: 5px;
 }
