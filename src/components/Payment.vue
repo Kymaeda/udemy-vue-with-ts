@@ -1,16 +1,19 @@
 <script setup lang="ts">
-// FIXME: cannot be compiled under '--isolatedModules' because it is considered a global script file. Add an import, export, or an empty 'export {}' statement to make it a module.
-const item1 = 'カレーライス'
+import { ref, reactive } from 'vue'
+
+const item1 = ref<string>('カレーライス')
 const price1 = 400
 const url1 = 'https://pkg.navitime.co.jp/matsuyafoods/spot/detail?code=0000001506'
 
-const item2 = 'ハンバーグ'
-const price2 = 600
-const url2 = 'https://www.nakaita.com/shop/shop-0-97/'
+const item2 = reactive({
+  name: 'ハンバーグ',
+  price: 1000,
+  url: 'https://www.nakaita.com/shop/shop-0-97/'
+})
 
 const buy = (itemName: string) => alert(`${itemName}を購入する`)
 const add = (e: any) => {
-  console.log("event_value", e.currentTarget.value)
+  item2.name = e.currentTarget.value
 }
 </script>
 
@@ -25,10 +28,10 @@ const add = (e: any) => {
       <button @click="buy(item1)">buy</button>
     </div>
     <div class="payment-item">
-      <label>{{ item2 }}</label>
-      <label>{{ price2 }}</label>
-      <a :href="url2" target="_blank" rel="noopener noreferrer">bought here</a>
-      <button @click="buy(item2)">buy</button>
+      <label>{{ item2.name }}</label>
+      <label>{{ item2.price }}</label>
+      <a :href="item2.url" target="_blank" rel="noopener noreferrer">bought here</a>
+      <button @click="buy(item2.name)">buy</button>
     </div>
   </div>
 </template>
