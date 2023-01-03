@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, watch, toRefs } from 'vue'
 
 const item1 = ref<string>('カレーライス')
 const price1 = 400
@@ -23,8 +23,20 @@ const clear = () => {
   item2.price = 0
 }
 const itemBudget = 5000
-const priceLabel = computed(() => {
-  return item2.price > itemBudget ? 'Too Expensive!!!' : item2.price
+// const priceLabel = computed(() => {
+//   return item2.price > itemBudget ? 'Too Expensive!!!' : item2.price
+// })
+
+// NOTE: watchの引数(1: 監視対象のリアクティブな値, 2: 関数)
+// NOTE: リアクティブなオブジェクトのプロパティ(非リアクティブ)をwatchする場合,toRefsでプロパティをリアクティブにする
+const priceLabel = ref<string>(`${item2.price} yen`)
+const { price } = toRefs(item2)
+watch(price, () => {
+  if (price.value > itemBudget) {
+    priceLabel.value = 'Too Expensive!!!'
+  } else {
+    priceLabel.value = `${item2.price} yen`
+  }
 })
 </script>
 
