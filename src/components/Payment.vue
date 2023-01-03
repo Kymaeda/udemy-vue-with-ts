@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed, watch, toRefs } from 'vue'
+import { ref, reactive, computed, watch, toRefs, onBeforeMount, onMounted, onUpdated } from 'vue'
 
 const item1 = ref<string>('カレーライス')
 const price1 = 400
@@ -38,6 +38,12 @@ watch(price, () => {
     priceLabel.value = `${item2.price} yen`
   }
 })
+
+// Lifecycle Hooks
+onBeforeMount(() => console.log('before mounted'))
+onMounted(() => console.log('on mounted'))
+// NOTE: テンプレートの再描画が必要な場合のみ、関数が実行される(リアクティブな値が変更されてもテンプレートの再描画がされないと実行されない)
+onUpdated(() => console.log('updated'))
 </script>
 
 <template>
