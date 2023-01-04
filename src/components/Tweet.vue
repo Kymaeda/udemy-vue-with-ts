@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import TweetFormVue from "./TweetForm.vue";
+import TweetListVue from "./TweetList.vue";
 
 const tweets = ref([
   { id: 1, content: 'ツイートの中身1' },
@@ -7,13 +9,13 @@ const tweets = ref([
   { id: 3, content: 'ツイートの中身3' },
 ])
 
-const inputContent = ref<string>('')
-const inputArea = ref() // template refとリアクティブ名を同じにすれば、取得できる
-const submit = () => {
-  tweets.value.push({ id: Math.random(), content: inputContent.value })
-  inputContent.value = ''
-  inputArea.value.focus()
-}
+// const inputContent = ref<string>('')
+// const inputArea = ref() // template refとリアクティブ名を同じにすれば、取得できる
+// const submit = () => {
+//   tweets.value.push({ id: Math.random(), content: inputContent.value })
+//   inputContent.value = ''
+//   inputArea.value.focus()
+// }
 const deleteContent = (index: number) => {
   tweets.value.splice(index, 1)
 }
@@ -22,18 +24,12 @@ const deleteContent = (index: number) => {
 <template>
   <div class="container">
     <h1>Tweets</h1>
-    <div class="form-container">
-      <input v-model="inputContent" ref="inputArea"/>
-      <button class="submit" @click="submit">post</button>
-    </div>
+    <TweetFormVue />
 
     <div class="tweet-container">
       <p v-if="tweets.length == 0">Submit your first tweet!!!!</p>
-      <ul v-else class="tweet-list">
-        <li v-for="(tweet, index) in tweets" :key="tweet.id">
-          <span>{{ tweet.content }}</span>
-          <button @click="deleteContent(index)">delete</button>
-        </li>
+      <ul v-else>
+        <TweetListVue :tweets="tweets" />
       </ul>
     </div>
   </div>
@@ -51,38 +47,7 @@ ul {
   align-items: center;
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  background-color: aliceblue;
-  padding: 24px 0;
-  width: 60%;
-  height: 100px;
-  margin-bottom: 12px;
-  border-radius: 4px;
-}
-
-input {
-  width: 50%;
-  height: 25px;
-  border-radius: 5px;
-}
-
 .tweet-container {
   width: 60%;
-}
-
-.tweet-list {
-  list-style: none;
-}
-
-.tweet-list li {
-  width: 100%;
-  background-color: gray;
-  margin: 10px 0;
-  padding: 5px 0;
-  border-radius: 5px;
 }
 </style>
