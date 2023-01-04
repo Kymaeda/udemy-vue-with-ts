@@ -12,6 +12,9 @@ const submit = () => {
   tweets.value.push({ id: Math.random(), content: inputContent.value })
   inputContent.value = ''
 }
+const deleteContent = (index: number) => {
+  tweets.value.splice(index, 1)
+}
 </script>
 
 <template>
@@ -24,9 +27,9 @@ const submit = () => {
 
     <div class="tweet-container">
       <ul class="tweet-list">
-        <li v-for="tweet in tweets" :key="tweet.id">
+        <li v-for="(tweet, index) in tweets" :key="tweet.id">
           <span>{{ tweet.content }}</span>
-          <button>delete</button>
+          <button @click="deleteContent(index)">delete</button>
         </li>
       </ul>
     </div>
