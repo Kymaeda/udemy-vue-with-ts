@@ -8,9 +8,11 @@ const tweets = ref([
 ])
 
 const inputContent = ref<string>('')
+const inputArea = ref() // template refとリアクティブ名を同じにすれば、取得できる
 const submit = () => {
   tweets.value.push({ id: Math.random(), content: inputContent.value })
   inputContent.value = ''
+  inputArea.value.focus()
 }
 const deleteContent = (index: number) => {
   tweets.value.splice(index, 1)
@@ -21,12 +23,13 @@ const deleteContent = (index: number) => {
   <div class="container">
     <h1>Tweets</h1>
     <div class="form-container">
-      <input v-model="inputContent" />
+      <input v-model="inputContent" ref="inputArea"/>
       <button class="submit" @click="submit">post</button>
     </div>
 
     <div class="tweet-container">
-      <ul class="tweet-list">
+      <p v-if="tweets.length == 0">Submit your first tweet!!!!</p>
+      <ul v-else class="tweet-list">
         <li v-for="(tweet, index) in tweets" :key="tweet.id">
           <span>{{ tweet.content }}</span>
           <button @click="deleteContent(index)">delete</button>
