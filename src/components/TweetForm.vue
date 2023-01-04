@@ -4,7 +4,13 @@ import { ref} from 'vue'
 const inputContent = ref<string>('')
 const inputArea = ref() // template refとリアクティブ名を同じにすれば、取得できる
 
-const submit = () => {}
+
+const emit = defineEmits(['submit'])
+const submit = () => {
+  emit('submit', inputContent.value)
+  inputContent.value = ''
+  inputArea.value.focus()
+}
 </script>
 
 <template>
